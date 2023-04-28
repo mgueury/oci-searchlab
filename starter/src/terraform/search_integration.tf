@@ -1,5 +1,5 @@
 variable idcs_at {}
-
+/*
 resource "oci_integration_integration_instance" "opensearch-oic" {
   #Required
   compartment_id            = var.compartment_ocid
@@ -13,3 +13,4 @@ resource "oci_integration_integration_instance" "opensearch-oic" {
   state                     = "ACTIVE"
   idcs_at                   = var.idcs_at 
 }
+*/
