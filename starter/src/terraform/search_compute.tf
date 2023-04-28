@@ -61,7 +61,7 @@ resource "oci_core_instance" "starter_instance" {
       timeout     = "5m"
       user        = "opc"
       private_key = var.ssh_private_key
-      host        = oci_core_instance.opensearch_instance.*.public_ip[0]
+      host        = oci_core_instance.starter_instance.*.public_ip[0]
     }
 
     source      = "oic_install_agent.sh"
