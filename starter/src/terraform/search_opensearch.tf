@@ -23,7 +23,7 @@ resource "oci_opensearch_opensearch_cluster" "opensearch_cluster" {
   data_node_storage_gb               = 50
   display_name                       = "opensearch-cluster"
   master_node_count                  = 1
-  master_node_host_memory_gb         = 16
+  master_node_host_memory_gb         = 24
   master_node_host_ocpu_count        = 1
   master_node_host_type              = "FLEX"
   opendashboard_node_count           = 1
