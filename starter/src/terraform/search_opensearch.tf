@@ -34,6 +34,10 @@ resource "oci_opensearch_opensearch_cluster" "opensearch_cluster" {
   subnet_id                          = data.oci_core_subnet.starter_public_subnet.id
   vcn_compartment_id                 = local.lz_network_cmp_ocid
   vcn_id                             = oci_core_vcn.starter_vcn.id
+
+  // security_mode                     = "ENFORCING"
+  // security_master_user_name         = var.security_master_user_name
+  // security_master_user_password_hash = var.security_master_user_password_hash  
 }
 
 data "oci_opensearch_opensearch_clusters" "opensearch_clusters" {
