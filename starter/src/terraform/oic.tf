@@ -1,5 +1,5 @@
 variable "identity_domain_id" {
-  default = ""
+  default = "DEFAULT"
 }
 
 data "oci_identity_domain" "test_domain" {
