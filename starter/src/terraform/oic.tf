@@ -10,7 +10,9 @@ output idcs_endpoint {
   value = data.oci_identity_domain.test_domain.url
 }
 
-variable "idcs_access_token" {}
+variable "idcs_access_token" {
+  default = ""
+}
 
 resource "oci_integration_integration_instance" "opensearch_oic" {
   count = var.idcs_access_token?1:0
