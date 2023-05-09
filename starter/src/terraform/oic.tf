@@ -11,6 +11,7 @@ output idcs_endpoint {
 }
 
 resource "oci_integration_integration_instance" "opensearch_oic" {
+  count = var.idcs_access_token?1:0
   #Required
   compartment_id = local.lz_appdev_cmp_ocid
   display_name  = "${var.prefix}-oic"  
@@ -18,8 +19,8 @@ resource "oci_integration_integration_instance" "opensearch_oic" {
   integration_instance_type = "STANDARDX"
   is_byol                   = "true"
   message_packs             = "1"
-  # idcs_at                   = var.integration_instance_idcs_access_token
-  is_visual_builder_enabled = true
+  idcs_at                   = var.idcs_access_token
+  # is_visual_builder_enabled = true
   freeform_tags             = local.freeform_tags  
 }
 
