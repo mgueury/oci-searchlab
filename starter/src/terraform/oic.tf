@@ -15,7 +15,7 @@ variable "idcs_access_token" {
 }
 
 resource "oci_integration_integration_instance" "opensearch_oic" {
-  count = var.idcs_access_token==""?1:0
+  count = var.idcs_access_token==""?0:1
   #Required
   compartment_id = local.lz_appdev_cmp_ocid
   display_name  = "${var.prefix}-oic"  
