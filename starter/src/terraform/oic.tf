@@ -1,3 +1,15 @@
+variable "identity_domain_id" {
+  default = ""
+}
+
+data "oci_identity_domain" "test_domain" {
+  domain_id = var.identity_domain_id
+}
+
+output idcs_endpoint {
+  value = data.oci_identity_domain.test_domain.url
+}
+
 resource "oci_integration_integration_instance" "opensearch_oic" {
   #Required
   compartment_id = local.lz_appdev_cmp_ocid
