@@ -2,12 +2,12 @@ variable "identity_domain_id" {
   default = "DEFAULT"
 }
 
-data "oci_identity_domain" "test_domain" {
-  domain_id = var.identity_domain_id
+data "oci_identity_domains" "domains" {
+  compartment_id = var.tenancy_ocid
 }
 
 output idcs_endpoint {
-  value = data.oci_identity_domain.test_domain.url
+  value = data.oci_identity_domains.domains[0].url
 }
 
 variable "idcs_access_token" {
