@@ -20,3 +20,8 @@ echo "COMPUTE_PUBLIC-IP=$COMPUTE_IP"
 echo "##COMPUTE_PRIVATE-KEY##"
 echo "##OPENSEARCH_HOST##"
 
+echo -n | openssl s_client -connect $STREAM_BOOSTRAPSERVER | sed -ne  '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ociStreaming.cert
+keytool -keystore oss_store.jks -alias OSSStream -import -file ociStreaming.cert -storepass changeit -noprompt
+echo "File oss_store.jks created"
+
+
