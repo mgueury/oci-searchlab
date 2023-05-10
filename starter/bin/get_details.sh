@@ -9,6 +9,7 @@ get_attribute_from_tfstate "STREAM_BOOSTRAPSERVER" "opensearch_stream_pool" "kaf
 get_attribute_from_tfstate "STREAM_OCID" "opensearch_stream_pool" "id"
 get_attribute_from_tfstate "TENANCY_NAME" "tenant_details" "name"
 get_attribute_from_tfstate "OPENSEARCH_HOST" "opensearch_cluster" "opensearch_fqdn"
+get_attribute_from_tfstate "COMPUTE_IP" "starter_instance" "public_ip"
 
 opensearch_fqdn
 
