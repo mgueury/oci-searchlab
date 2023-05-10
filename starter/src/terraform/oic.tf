@@ -6,8 +6,8 @@ data "oci_identity_domains" "domains" {
   compartment_id = var.tenancy_ocid
 }
 
-output idcs_endpoint {
-  value = data.oci_identity_domains.domains[0].url
+output idcs_url {
+  value = data.oci_identity_domains.domains.domains[0].url
 }
 
 variable "idcs_access_token" {
