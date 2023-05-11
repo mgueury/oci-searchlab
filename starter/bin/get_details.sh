@@ -11,13 +11,15 @@ get_attribute_from_tfstate "TENANCY_NAME" "tenant_details" "name"
 get_attribute_from_tfstate "OPENSEARCH_HOST" "opensearch_cluster" "opensearch_fqdn"
 get_attribute_from_tfstate "COMPUTE_IP" "starter_instance" "public_ip"
 
-opensearch_fqdn
+get_attribute_from_tfstate "FN_OCID" "starter_fn_function" "id"
+get_attribute_from_tfstate "FN_INVOKE_ENDPOINT" "starter_fn_function" "invoke_endpoint"
 
 # echo "TENANCY_NAME=$TENANCY_NAME"
 echo "COMPARTMENT_OCID=$TF_VAR_compartment_ocid"
 echo "STREAM_BOOSTRAPSERVER=$STREAM_BOOSTRAPSERVER"
 echo "STREAM_USERNAME=$TENANCY_NAME/$TF_VAR_username/$STREAM_OCID"
 echo "AUTH_TOKEN=$TF_VAR_auth_token"
+echo "FUNTION_ENDPOINT=$FN_INVOKE_ENDPOINT/20181201/functions/$FN_OCID/actions.invoke"
 
 echo "COMPUTE_PUBLIC-IP=$COMPUTE_IP"
 echo "OPENSEARCH_HOST=$OPENSEARCH_HOST"
