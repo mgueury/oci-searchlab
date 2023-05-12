@@ -12,7 +12,7 @@ resource "oci_identity_dynamic_group" "search-oic-dyngroup" {
   matching_rule  = "ALL {resource.type = 'integration', resource.compartment.id = '${var.compartment_ocid}'}"
 }
 
-resource "oci_identity_policy" "devopspolicy" {
+resource "oci_identity_policy" "search-policy" {
   name           = "${var.prefix}-policy"
   description    = "${var.prefix} policy"
   compartment_id = var.tenancy_ocid
