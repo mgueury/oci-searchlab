@@ -19,10 +19,11 @@ echo "COMPARTMENT_OCID=$TF_VAR_compartment_ocid"
 echo "STREAM_BOOSTRAPSERVER=$STREAM_BOOSTRAPSERVER"
 echo "STREAM_USERNAME=$TENANCY_NAME/$TF_VAR_username/$STREAM_OCID"
 echo "AUTH_TOKEN=$TF_VAR_auth_token"
-echo "FUNTION_ENDPOINT=$FN_INVOKE_ENDPOINT/20181201/functions/$FN_OCID/actions.invoke"
+echo "FUNTION_ENDPOINT=$FN_INVOKE_ENDPOINT/20181201/functions/$FN_OCID"
 
 echo "COMPUTE_PUBLIC-IP=$COMPUTE_IP"
 echo "OPENSEARCH_HOST=$OPENSEARCH_HOST"
+echo "OPENSEARCH_API_ENDPOINT=https://$OPENSEARCH_HOST:5601"
 
 echo "# OPENSEARCH_USER=opensearch-user"
 echo "# OPENSEARCH_PWD=LiveLab--123"
@@ -32,3 +33,4 @@ keytool -keystore oss_store.jks -alias OSSStream -import -file ociStreaming.cert
 echo "File oss_store.jks created"
 
 
+https://
