@@ -1,5 +1,3 @@
-Allow dynamic-group opensearch-fn-dyngroup to manage objects in compartment livelab
-
 resource "oci_identity_dynamic_group" "search-fn-dyngroup" {
   provider       = oci.home_region
   name           = "${var.prefix}-fn-dyngroup"
