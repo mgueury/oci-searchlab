@@ -1,5 +1,4 @@
 resource "oci_identity_dynamic_group" "search-fn-dyngroup" {
-  provider       = oci.home_region
   name           = "${var.prefix}-fn-dyngroup"
   description    = "Function Dyngroup"
   compartment_id = var.tenancy_ocid
@@ -7,7 +6,6 @@ resource "oci_identity_dynamic_group" "search-fn-dyngroup" {
 }
 
 resource "oci_identity_dynamic_group" "search-oic-dyngroup" {
-  provider       = oci.home_region
   name           = "${var.prefix}-oic-dyngroup"
   description    = "OIC Dyngroup"
   compartment_id = var.tenancy_ocid
@@ -15,7 +13,6 @@ resource "oci_identity_dynamic_group" "search-oic-dyngroup" {
 }
 
 resource "oci_identity_policy" "devopspolicy" {
-  provider       = oci.home_region
   name           = "${var.prefix}-policy"
   description    = "${var.prefix} policy"
   compartment_id = var.tenancy_ocid
