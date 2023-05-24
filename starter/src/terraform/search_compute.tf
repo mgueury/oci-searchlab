@@ -42,7 +42,7 @@ resource "oci_core_instance" "starter_instance" {
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
-    user_data           = base64encode(file("./oic_agent_userdata.sh"))
+    user_data           = base64encode(data.template_file.user_data.rendered)
   }
 
   source_details {
@@ -55,11 +55,6 @@ resource "oci_core_instance" "starter_instance" {
     host        = oci_core_instance.starter_instance.public_ip
     user        = "opc"
     private_key = var.ssh_private_key
-  }
-
-  metadata = {
-    ssh_authorized_keys = var.ssh_public_key
-    user_data           = base64encode(data.template_file.user_data.rendered)
   }
 
   provisioner "remote-exec" {
