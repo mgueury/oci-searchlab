@@ -3,8 +3,12 @@ data "template_file" "user_data" {
   template = file("./oic_agent_userdata.sh")
 
   vars = {
-    oic_ocid = var.oic_ocid
-    oic_host = var.oic_ocid
+    OIC_OCID = var.oic_ocid
+    OIC_HOST = data.oci_integration_integration_instance.oic.instance_url
+    OCI_USER = var.username
+    OCI_PASSWORD = "xxxxxx"
+    AGENT_GROUP = "OPENSEARCH_AGENT_GROUP"
+    OPENSEARCH_HOST = oci_opensearch_opensearch_cluster.opensearch_cluster.opensearch_fqdn
   }
 }
 
@@ -92,38 +96,5 @@ output "instance_public_ips" {
 output "ui_url" {
   value = format("http://%s", oci_core_instance.starter_instance.public_ip)
 }
-----------
 
-resource "oci_core_instance_configuration" "orablog_instance_configuration" {
-  compartment_id = var.compartment_ocid
-  display_name   = "${var.prefix}InstanceConfiguration"
 
-  instance_details {
-    instance_type = "compute"
-
-    launch_details {
-      compartment_id = var.compartment_ocid
-      shape          = var.instance_shape
-      display_name   = "${var.prefix}InstanceConfigurationLaunchDetails"
-
-      create_vnic_details {
-        assign_public_ip       = true
-        display_name           = var.prefix
-        skip_source_dest_check = false
-      }
-
-      source_details {
-        source_type = "image"
-        image_id    = var.instance_image_ocid.eu-frankfurt-1
-      }
-
-      metadata = {
-        ssh_authorized_keys = var.ssh_public_key
-        user_data           = base64encode(data.template_file.user_data.rendered)
-      }
-    }
-  }
-  lifecycle {
-    create_before_destroy = true
-  }
-}
