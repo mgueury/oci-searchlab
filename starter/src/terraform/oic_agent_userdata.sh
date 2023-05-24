@@ -1,4 +1,4 @@
 #!/bin/bash
 # yum update -y
 echo 'UserData' > /tmp/userdata.txt
-yum install nginx -y
+$HOME/oic_install_agent.sh

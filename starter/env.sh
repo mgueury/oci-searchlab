@@ -18,7 +18,7 @@ export TF_VAR_db_user=""
 if [ -f $SCRIPT_DIR/../group_common_env.sh ]; then
   . $SCRIPT_DIR/../group_common_env.sh
 else
-  export TF_VAR_oic_ocid=ocid1.compartment.xxxxx
+  export TF_VAR_oic_ocid="__TO_FILL__"
   # export TF_VAR_compartment_ocid=ocid1.compartment.xxxxx
   # TF_VAR_license_model : BRING_YOUR_OWN_LICENSE or LICENSE_INCLUDED
   export TF_VAR_license_model="LICENSE_INCLUDED"
