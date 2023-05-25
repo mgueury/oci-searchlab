@@ -1,4 +1,4 @@
-variable oic_ocid {}
+variable oci_password {}
 
 # Defines the number of instances to deploy
 data "template_file" "user_data" {

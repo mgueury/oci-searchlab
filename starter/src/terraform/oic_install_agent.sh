@@ -4,14 +4,17 @@ echo OCI_PASSWORD=$OCI_PASSWORD
 echo AGENT_GROUP=$AGENT_GROUP
 echo OPENSEARCH_HOST=$OPENSEARCH_HOST
 
-echo oic_host=$oic_host 
-echo oci_user=$oci_user 
-echo oci_password=$oci_password 
-echo agent_group=$agent_group 
-echo opensearch_host=$opensearch_host 
+export OIC_NAME=`echo $OIC_HOST | sed 's#https://##' | sed 's/\..*//'`
+export OIC_DOMAIN=`echo $OIC_HOST | sed 's/.*integration\.//'`
+
+echo OIC_NAME=$OIC_NAME
+echo OIC_DOMAIN=$OIC_DOMAIN
 
 # Download the OIC_agent
-curl -X GET  $OIC_HOST/ic/api/integration/v1/agents/binaries/connectivity -u $OCI_USER:$OCI_PASSWORD -o $HOME/oic_connectivity_agent.zip
+# OIC Gen 2
+# curl -X GET  $OIC_HOST/ic/api/integration/v1/agents/binaries/connectivity -u $OCI_USER:$OCI_PASSWORD -o $HOME/oic_connectivity_agent.zip
+curl -X GET https://design.integration.$OIC_DOMAIN/ic/api/integration/v1/agents/binaries/connectivity?integrationInstance=$OIC_NAME -u $OCI_USER:$OCI_PASSWORD -o $HOME/oic_connectivity_agent.zip
+ls -a
 
 # Unzip it
 mkdir oic_agent
@@ -49,7 +52,7 @@ cat /tmp/opensearch.cert
 cd agenthome/agent/cert/ 
 ls keystore.jks
 keytool -importcert -keystore keystore.jks -storepass changeit -alias opensearch -noprompt -file /tmp/opensearch.cert
-cd ../..
+cd ../../..
 
 # Create a start command
 echo 'java -jar connectivityagent.jar > agent.log 2>&1 &' > start.sh
