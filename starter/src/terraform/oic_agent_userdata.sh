@@ -14,4 +14,4 @@ while [ ! -f ./oic_install_agent.sh ]; do
 done
 
 chmod +x ./oic_install_agent.sh
-sudo su opc ./oic_install_agent.sh > /tmp/oic_install_agent.log
+sudo -Eu opc bash -c './oic_install_agent.sh > /tmp/oic_install_agent.log'
