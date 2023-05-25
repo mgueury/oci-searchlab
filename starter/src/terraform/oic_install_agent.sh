@@ -1,3 +1,15 @@
+echo OIC_HOST=$OIC_HOST
+echo OCI_USER=$OCI_USER
+echo OCI_PASSWORD=$OCI_PASSWORD
+echo AGENT_GROUP=$AGENT_GROUP
+echo OPENSEARCH_HOST=$OPENSEARCH_HOST
+
+echo oic_host=$oic_host 
+echo oci_user=$oci_user 
+echo oci_password=$oci_password 
+echo agent_group=$agent_group 
+echo opensearch_host=$opensearch_host 
+
 # Download the OIC_agent
 curl -X GET  $OIC_HOST/ic/api/integration/v1/agents/binaries/connectivity -u $OCI_USER:$OCI_PASSWORD -o $HOME/oic_connectivity_agent.zip
 
@@ -5,6 +17,7 @@ curl -X GET  $OIC_HOST/ic/api/integration/v1/agents/binaries/connectivity -u $OC
 mkdir oic_agent
 cd oic_agent
 unzip ../oic_connectivity_agent.zip
+
 
 # Configure it
 mv InstallerProfile.cfg InstallerProfile.orig
