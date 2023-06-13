@@ -9,7 +9,8 @@ resource "oci_identity_dynamic_group" "search-oic-dyngroup" {
   name           = "${var.prefix}-oic-dyngroup"
   description    = "OIC Dyngroup"
   compartment_id = var.tenancy_ocid
-  matching_rule  = "ALL {resource.type = 'integration', resource.compartment.id = '${var.compartment_ocid}'}"
+  matching_rule  = "ALL {resource.id = '${var.oic_appid}'}"
+  // ex: resource.id = '668BE268A0904B7EA982236C5E33943B_APPID'
 }
 
 resource "oci_identity_policy" "search-policy" {

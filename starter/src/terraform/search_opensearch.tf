@@ -1,16 +1,3 @@
-resource "oci_identity_policy" "opensearch-policy" {
-  name           = "opensearch-policy"
-  description    = "Opensearch policy created by terraform"
-  compartment_id = local.lz_appdev_cmp_ocid
-
-  statements = [
-    "Allow service opensearch to manage vnics in compartment id ${local.lz_appdev_cmp_ocid}",
-    "Allow service opensearch to use subnets in compartment id ${local.lz_appdev_cmp_ocid}",
-    "Allow service opensearch to use network-security-groups in compartment id ${local.lz_appdev_cmp_ocid}",
-    "Allow service opensearch to manage vcns in compartment id ${local.lz_appdev_cmp_ocid}"
-  ]
-}
-
 resource "oci_opensearch_opensearch_cluster" "opensearch_cluster" {
   depends_on = [oci_identity_policy.opensearch-policy]
 
