@@ -29,12 +29,14 @@ fi
 # Do not stop if __TO_FILL__ are not replaced if TF_VAR_group_name exist in env variable
 # XXX -> It would be safer to check also for TF_VAR_xxx containing __TO_FILL__ too
 if [ ! -f $ROOT_DIR/../group_common_env.sh ]; then 
-  if grep -q "__TO_FILL__" $ROOT_DIR/env.sh; then
-    echo "Error: missing environment variables."
-    echo
-    echo "Edit the file env.sh. Some variables needs to be filled:" 
-    echo `cat env.sh | grep __TO_FILL__` 
-    exit
+  if [ ! -f $HOME/.oci_starter_profile ]; then 
+    if grep -q "__TO_FILL__" $ROOT_DIR/env.sh; then
+      echo "Error: missing environment variables."
+      echo
+      echo "Edit the file env.sh. Some variables needs to be filled:" 
+      echo `cat env.sh | grep __TO_FILL__` 
+      exit
+  fi
   fi
 fi  
 
@@ -129,23 +131,24 @@ else
     export TF_VAR_bastion_ad=$TF_VAR_ad
   fi 
 
-  # GIT 
-  export GIT_BRANCH=`git rev-parse --abbrev-ref HEAD`
-  if [ "$GIT_BRANCH" != "" ]; then
-    export TF_VAR_git_url=`git config --get remote.origin.url`
-    if [[ "$TF_VAR_git_url" == *"github.com"* ]]; then
-      S1=${TF_VAR_git_url/git@github.com:/https:\/\/github.com\/}        
-      export TF_VAR_git_url=${S1/.git/\/blob\/}${GIT_BRANCH}
-    elif [[ "$TF_VAR_git_url" == *"gitlab.com"* ]]; then
-      S1=${TF_VAR_git_url/git@gitlab.com:/https:\/\/gitlab.com\/}        
-      export TF_VAR_git_url=${S1/.git/\/-\/blob\/}${GIT_BRANCH}
-    fi
-
-    cd $ROOT_DIR
-    export GIT_RELATIVE_PATH=`git rev-parse --show-prefix`
-    cd -
-    export TF_VAR_git_url=${TF_VAR_git_url}/${GIT_RELATIVE_PATH}
-    echo $TF_VAR_git_url
+  # GIT
+  if [ `git rev-parse --is-inside-work-tree` ]; then   
+    export GIT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+    if [ "$GIT_BRANCH" != "" ]; then
+      export TF_VAR_git_url=`git config --get remote.origin.url`
+      if [[ "$TF_VAR_git_url" == *"github.com"* ]]; then
+        S1=${TF_VAR_git_url/git@github.com:/https:\/\/github.com\/}        
+        export TF_VAR_git_url=${S1/.git/\/blob\/}${GIT_BRANCH}
+      elif [[ "$TF_VAR_git_url" == *"gitlab.com"* ]]; then
+        S1=${TF_VAR_git_url/git@gitlab.com:/https:\/\/gitlab.com\/}        
+        export TF_VAR_git_url=${S1/.git/\/-\/blob\/}${GIT_BRANCH}
+      fi
+      cd $ROOT_DIR
+      export GIT_RELATIVE_PATH=`git rev-parse --show-prefix`
+      cd -
+      export TF_VAR_git_url=${TF_VAR_git_url}/${GIT_RELATIVE_PATH}
+      echo $TF_VAR_git_url
+    fi  
   fi
 fi
 
@@ -197,9 +200,9 @@ if [ -f $STATE_FILE ]; then
   fi
 
   # Compute
-  # if [ "$TF_VAR_deploy_strategy" == "compute" ]; then
-  get_attribute_from_tfstate "COMPUTE_IP" "starter_instance" "public_ip"
-  # fi
+  if [ "$TF_VAR_deploy_strategy" == "compute" ]; then
+    get_attribute_from_tfstate "COMPUTE_IP" "starter_instance" "public_ip"
+  fi
 
   # Bastion 
   get_attribute_from_tfstate "BASTION_IP" "starter_bastion" "public_ip"
@@ -210,6 +213,10 @@ if [ -f $STATE_FILE ]; then
 
   if [ "$TF_VAR_db_strategy" == "autonomous" ]; then
     get_output_from_tfstate "ORDS_URL" "ords_url"
+  fi
+
+  if [ "$TF_VAR_db_strategy" == "database" ] || [ "$TF_VAR_db_strategy" == "rac" ]; then
+    get_attribute_from_tfstate "DB_NODE_IP" "starter_node_vnic" "private_ip_address"
   fi
 
   if [ "$TF_VAR_deploy_strategy" == "kubernetes" ] || [ -f $ROOT_DIR/src/terraform/oke.tf ]; then
