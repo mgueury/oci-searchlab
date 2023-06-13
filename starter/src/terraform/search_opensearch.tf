@@ -1,5 +1,5 @@
 resource "oci_opensearch_opensearch_cluster" "opensearch_cluster" {
-  depends_on = [oci_identity_policy.opensearch-policy]
+  depends_on = [oci_identity_policy.search-policy]
 
   #Required
   compartment_id                     = local.lz_appdev_cmp_ocid
