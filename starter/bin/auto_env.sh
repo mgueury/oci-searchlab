@@ -132,7 +132,7 @@ else
   fi 
 
   # GIT
-  if [ `git rev-parse --is-inside-work-tree` ]; then   
+  if [ `git rev-parse --is-inside-work-tree 2>/dev/null` ]; then   
     export GIT_BRANCH=`git rev-parse --abbrev-ref HEAD`
     if [ "$GIT_BRANCH" != "" ]; then
       export TF_VAR_git_url=`git config --get remote.origin.url`
@@ -215,7 +215,7 @@ if [ -f $STATE_FILE ]; then
     get_output_from_tfstate "ORDS_URL" "ords_url"
   fi
 
-  if [ "$TF_VAR_db_strategy" == "database" ] || [ "$TF_VAR_db_strategy" == "rac" ]; then
+  if [ "$TF_VAR_db_strategy" == "database" ]; then
     get_attribute_from_tfstate "DB_NODE_IP" "starter_node_vnic" "private_ip_address"
   fi
 
