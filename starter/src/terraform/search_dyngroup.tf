@@ -1,3 +1,6 @@
+
+variable oic_appid {}
+
 resource "oci_identity_dynamic_group" "search-fn-dyngroup" {
   name           = "${var.prefix}-fn-dyngroup"
   description    = "Function Dyngroup"
