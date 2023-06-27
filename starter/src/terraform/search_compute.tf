@@ -1,13 +1,11 @@
-variable oci_password {}
-
 # Defines the number of instances to deploy
 data "template_file" "user_data" {
   template = file("./oic_agent_userdata.sh")
   vars = {
     OIC_OCID = var.oic_ocid
-    OIC_HOST = data.oci_integration_integration_instance.oic.instance_url
-    OCI_USER = var.username
-    OCI_PASSWORD =var.oci_password
+    OIC_CLIENT_ID = var.oic_client_id
+    OIC_CLIENT_SECRET = var.oic_client_secret
+    OIC_SCOPE = var.oic_scope
     AGENT_GROUP = "OPENSEARCH_AGENT_GROUP"
     OPENSEARCH_HOST = oci_opensearch_opensearch_cluster.opensearch_cluster.opensearch_fqdn
   }
