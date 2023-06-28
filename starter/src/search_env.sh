@@ -41,7 +41,7 @@ echo
 echo "-- FUNCTION CONNECTION ---------------------------"
 echo "FUNCTION_ENDPOINT=$FN_INVOKE_ENDPOINT/20181201/functions/$FN_OCID"
 echo
-echo "-- OPENSEACH CONNECTION --------------------------"
+echo "-- OPENSEARCH CONNECTION --------------------------"
 echo "OPENSEARCH_API_ENDPOINT=https://$OPENSEARCH_HOST:9200"
 echo
 echo "-- API GATEWAY CONNECTION ------------------------"
