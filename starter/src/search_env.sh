@@ -39,7 +39,7 @@ echo "STREAM_USERNAME=$TENANCY_NAME/$TF_VAR_username/$STREAM_OCID"
 echo "AUTH_TOKEN=$TF_VAR_auth_token"
 echo
 echo "-- FUNCTION CONNECTION ---------------------------"
-echo "FUNTION_ENDPOINT=$FN_INVOKE_ENDPOINT/20181201/functions/$FN_OCID"
+echo "FUNCTION_ENDPOINT=$FN_INVOKE_ENDPOINT/20181201/functions/$FN_OCID"
 echo
 echo "-- OPENSEACH CONNECTION --------------------------"
 echo "OPENSEARCH_API_ENDPOINT=https://$OPENSEARCH_HOST:9200"
