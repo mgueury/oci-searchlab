@@ -2,7 +2,7 @@ resource "oci_objectstorage_bucket" "opensearch_bucket" {
   compartment_id = var.compartment_ocid
   namespace      = local.ocir_namespace
   name           = "opensearch-bucket"
-  access_type    = "NoPublicAccess"
+  access_type    = "ObjectReadWithoutList"
   object_events_enabled = true
 }
 

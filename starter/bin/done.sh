@@ -65,4 +65,4 @@ if [ ! -z "$UI_URL" ]; then
   fi
 fi
 
-
+$ROOT_DIR/src/search_env.sh
