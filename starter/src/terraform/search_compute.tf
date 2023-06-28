@@ -1,6 +1,17 @@
 variable oic_client_id {}
 variable oic_client_secret {}
 variable oic_scope {}
+variable idcs_url { default = "" }
+
+data "oci_identity_domains" "starter_domains" {
+    #Required
+    compartment_id = var.tenancy_ocid
+    display_name = "Default"
+}
+
+locals {
+  idcs_url = (var.idcs_url!="")?var.idcs_url:data.oci_identity_domains.starter_domains.domains[0].url
+}
 
 # Defines the number of instances to deploy
 data "template_file" "user_data" {
@@ -11,6 +22,7 @@ data "template_file" "user_data" {
     OIC_CLIENT_ID = var.oic_client_id
     OIC_CLIENT_SECRET = var.oic_client_secret
     OIC_SCOPE = var.oic_scope
+    IDCS_URL = local.idcs_url
     AGENT_GROUP = "OPENSEARCH_AGENT_GROUP"
     OPENSEARCH_HOST = oci_opensearch_opensearch_cluster.opensearch_cluster.opensearch_fqdn
   }
@@ -97,8 +109,13 @@ output "instance_public_ips" {
   value = [oci_core_instance.starter_instance.public_ip]
 }
 
+output "idcs_url" {
+  value = local.idcs_url
+}
+
 output "ui_url" {
   value = format("http://%s", oci_core_instance.starter_instance.public_ip)
 }
+
 
 

@@ -4,12 +4,15 @@ echo OIC_CLIENT_SECRET=${OIC_CLIENT_SECRET}
 echo OIC_SCOPE=${OIC_SCOPE}
 echo AGENT_GROUP=${AGENT_GROUP}
 echo OPENSEARCH_HOST=${OPENSEARCH_HOST}
+echo IDCS_URL=${IDCS_URL}
 
 export OIC_NAME=`echo $OIC_HOST | sed 's#https://##' | sed 's/\..*//'`
+export IDCS_HOST=`echo $IDCS_URL | sed 's#https://##' | sed 's/:.*//'`
 export OIC_DOMAIN=`echo $OIC_HOST | sed 's/.*integration\.//'`
 
 echo OIC_NAME=$OIC_NAME
 echo OIC_DOMAIN=$OIC_DOMAIN
+echo IDCS_HOST=$IDCS_HOST
 
 # Download the OIC_agent
 # OIC Gen 2
@@ -21,8 +24,7 @@ echo OIC_DOMAIN=$OIC_DOMAIN
 # export OIC_SCOPE=https://xxxxxxx.integration.eu-frankfurt-1.ocp.oraclecloud.com:443/ic/api/
 # export OIC_CLIENT_ID=xxxx
 # export OIC_CLIENT_SECRET=xxxx
-# export IDCS_HOST=idcs-xxx.identity.oraclecloud.com
-# export ACCESS_TOKEN=`curl -s -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=client_credentials&scope=$OIC_SCOPE" -u "$OIC_CLIENT_ID:$OIC_CLIENT_SECRET" "https://$IDCS_HOST/oauth2/v1/token" | jq -r ".access_token"`
+export ACCESS_TOKEN=`curl -s -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=client_credentials&scope=$OIC_SCOPE" -u "$OIC_CLIENT_ID:$OIC_CLIENT_SECRET" "https://$IDCS_HOST/oauth2/v1/token" | jq -r ".access_token"`
 curl -X GET "https://design.integration.$OIC_DOMAIN/ic/api/integration/v1/agents/binaries/connectivity?integrationInstance=$OIC_NAME" -H "Authorization: Bearer $ACCESS_TOKEN" -o oic_connectivity_agent.zip
 curl -X GET "https://design.integration.$OIC_DOMAIN/ic/api/integration/v1/agentgroups/OPENSEARCH_AGENT_GROUP/configuration?integrationInstance=$OIC_NAME" -H "Authorization: Bearer $ACCESS_TOKEN" -o InstallerProfile.cfg
 
@@ -30,7 +32,7 @@ curl -X GET "https://design.integration.$OIC_DOMAIN/ic/api/integration/v1/agentg
 mkdir oic_agent
 cd oic_agent
 unzip ../oic_connectivity_agent.zip
-cp ../InstallerProfile.cfg
+cp ../InstallerProfile.cfg .
 
 # Install JDK 17
 sudo yum install java-17-openjdk-devel -y
