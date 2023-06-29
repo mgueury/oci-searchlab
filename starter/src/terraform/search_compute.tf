@@ -18,7 +18,8 @@ data "template_file" "user_data" {
   template = file("./oic_agent_userdata.sh")
   vars = {
     OIC_OCID = var.oic_ocid
-    OIC_HOST = data.oci_integration_integration_instance.oic.instance_url
+    # Needed for destroy
+    OIC_HOST = coalesce(data.oci_integration_integration_instance.oic.instance_url,"-")
     OIC_CLIENT_ID = var.oic_client_id
     OIC_CLIENT_SECRET = var.oic_client_secret
     OIC_SCOPE = var.oic_scope
