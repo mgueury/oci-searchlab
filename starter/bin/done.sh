@@ -65,4 +65,6 @@ if [ ! -z "$UI_URL" ]; then
   fi
 fi
 
-$ROOT_DIR/src/search_env.sh
+if [ -f $ROOT_DIR/src/after_done.sh ]; then
+  $ROOT_DIR/src/after_done.sh
+fi

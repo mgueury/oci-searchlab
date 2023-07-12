@@ -200,10 +200,8 @@ if [ -f $STATE_FILE ]; then
   fi
 
   # Compute
-  if [ "$TF_VAR_deploy_strategy" == "compute" ]; then
-    get_attribute_from_tfstate "COMPUTE_IP" "starter_instance" "public_ip"
-  fi
-
+  get_attribute_from_tfstate "COMPUTE_IP" "starter_instance" "public_ip"
+  
   # Bastion 
   get_attribute_from_tfstate "BASTION_IP" "starter_bastion" "public_ip"
 
