@@ -2,7 +2,6 @@
 variable oic_appid {}
 
 resource "oci_identity_domains_dynamic_resource_group" "search-fn-dyngroup" {
-    description    = "Function Dyngroup"
     #Required
     display_name = "${var.prefix}-fn-dyngroup"
     idcs_endpoint = local.idcs_url
@@ -10,7 +9,6 @@ resource "oci_identity_domains_dynamic_resource_group" "search-fn-dyngroup" {
     schemas = ["urn:ietf:params:scim:schemas:oracle:idcs:DynamicResourceGroup"]
 }
 resource "oci_identity_domains_dynamic_resource_group" "search-oic-dyngroup" {
-    description    = "OIC Dyngroup"
     #Required
     display_name = "${var.prefix}-oic-dyngroup"
     idcs_endpoint = local.idcs_url
