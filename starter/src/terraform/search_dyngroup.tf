@@ -26,7 +26,7 @@ resource "oci_identity_policy" "search-policy" {
     "Allow service opensearch to use subnets in compartment id ${var.compartment_ocid}",
     "Allow service opensearch to use network-security-groups in compartment id ${var.compartment_ocid}",
     "Allow service opensearch to manage vcns in compartment id ${var.compartment_ocid}",
-    "Allow dynamic-group ${var.prefix}-fn-dyngroup to manage objects in compartment id ${var.compartment_ocid}",
-    "Allow dynamic-group ${var.prefix}-oic-dyngroup to manage all-resources in compartment id ${var.compartment_ocid}"
+    "Allow dynamic-group ${var.idcs_domain_name}/${var.prefix}-fn-dyngroup to manage objects in compartment id ${var.compartment_ocid}",
+    "Allow dynamic-group ${var.idcs_domain_name}/${var.prefix}-oic-dyngroup to manage all-resources in compartment id ${var.compartment_ocid}"
   ]
 }
