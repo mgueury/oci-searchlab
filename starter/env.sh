@@ -31,6 +31,9 @@ else
   # TF_VAR_auth_token : See doc: https://docs.oracle.com/en-us/iaas/Content/Registry/Tasks/registrygettingauthtoken.htm
   export TF_VAR_auth_token="__TO_FILL__"
 
+  # Oracle Identity Domain typically "Default" or "OracleIdentityCloudService"
+  # export TF_VAR_idcs_domain_name="Default"
+
   # Landing Zone
   # export TF_VAR_lz_appdev_cmp_ocid=$TF_VAR_compartment_ocid
   # export TF_VAR_lz_database_cmp_ocid=$TF_VAR_compartment_ocid

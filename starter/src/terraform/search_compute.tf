@@ -2,11 +2,12 @@ variable oic_client_id {}
 variable oic_client_secret {}
 variable oic_scope {}
 variable idcs_url { default = "" }
+variable idcs_domain_name { default = "Default" }
 
 data "oci_identity_domains" "starter_domains" {
     #Required
     compartment_id = var.tenancy_ocid
-    display_name = "Default"
+    display_name = var.idcs_domain_name
 }
 
 locals {
