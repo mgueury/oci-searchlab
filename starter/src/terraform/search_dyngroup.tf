@@ -1,23 +1,25 @@
 
 variable oic_appid {}
 
-resource "oci_identity_dynamic_group" "search-fn-dyngroup" {
-  name           = "${var.idcs_domain_name}/${var.prefix}-fn-dyngroup"
-  description    = "Function Dyngroup"
-  compartment_id = var.tenancy_ocid
-  matching_rule  = "ALL {resource.type = 'fnfunc', resource.compartment.id = '${var.compartment_ocid}'}"
+resource "oci_identity_domains_dynamic_resource_group" "search-fn-dyngroup" {
+    description    = "Function Dyngroup"
+    #Required
+    display_name = "${var.prefix}-fn-dyngroup"
+    idcs_endpoint = local.idcs_url
+    matching_rule = "ALL {resource.type = 'fnfunc', resource.compartment.id = '${var.compartment_ocid}'}"
+    schemas = ["urn:ietf:params:scim:schemas:oracle:idcs:DynamicResourceGroup"]
 }
-
-resource "oci_identity_dynamic_group" "search-oic-dyngroup" {
-  name           = "${var.idcs_domain_name}/${var.prefix}-oic-dyngroup"
-  description    = "OIC Dyngroup"
-  compartment_id = var.tenancy_ocid
-  matching_rule  = "ALL {resource.id = '${var.oic_appid}'}"
-  // ex: resource.id = '668BE268A0904B7EA982236C5E33943B_APPID'
+resource "oci_identity_domains_dynamic_resource_group" "search-oic-dyngroup" {
+    description    = "OIC Dyngroup"
+    #Required
+    display_name = "${var.prefix}-oic-dyngroup"
+    idcs_endpoint = local.idcs_url
+    matching_rule = "ALL {resource.id = '${var.oic_appid}'}"
+    schemas = ["urn:ietf:params:scim:schemas:oracle:idcs:DynamicResourceGroup"]
 }
 
 resource "oci_identity_policy" "search-policy" {
-  name           = "${var.idcs_domain_name}/${var.prefix}-policy"
+  name           = "${var.prefix}-policy"
   description    = "${var.prefix} policy"
   compartment_id = var.compartment_ocid
 
